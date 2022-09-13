@@ -39,9 +39,9 @@ class ModelForm extends React.Component {
             },
         };
 
-        const personResponse = await fetch(modelUrl, fetchOptions);
-        if (personResponse.ok) {
-            const newResponse = await personResponse.json();
+        const response = await fetch(modelUrl, fetchOptions);
+        if (response.ok) {
+            const newResponse = await response.json();
             console.log(newResponse);
 
             const cleared = {

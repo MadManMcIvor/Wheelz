@@ -7,7 +7,7 @@ import AutoList from './Autos';
 import AutoForm from './AutoForm';
 import VehicleModelList from './VehicleModelList'
 import ModelForm from './ModelForm'
-
+import TechnicianForm from './TechnicianForm';
 
 function App(props) {
   return (
@@ -27,6 +27,9 @@ function App(props) {
           <Route path="automobiles" >
             <Route path="" element={<AutoList autos={props.autos}/>} />
             <Route path="new" element={<AutoForm/>} />
+          </Route>
+          <Route path="technicians" >
+            <Route path="new" element={<TechnicianForm/>} />
           </Route>
         </Routes>
       </div>
