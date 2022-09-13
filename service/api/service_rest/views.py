@@ -53,17 +53,17 @@ def api_technician_list(request):
             )
         except:
             response = JsonResponse(
-                {"message": "Could not create the manufacturer"}
+                {"message": "Could not create the technician"}
             )
             response.status_code = 400
             return response
 
 
 @require_http_methods(["DELETE", "GET", "PUT"])
-def api_show_technician(request, pk):
+def api_show_technician(request, employee_number):
     if request.method == "GET":
         try:
-            technician = Technician.objects.get(id=pk)
+            technician = Technician.objects.get(employee_number=employee_number)
             return JsonResponse(
                 technician,
                 encoder=TechnicianEncoder,
@@ -75,7 +75,7 @@ def api_show_technician(request, pk):
             return response
     elif request.method == "DELETE":
         try:
-            technician = Technician.objects.get(id=pk)
+            technician = Technician.objects.get(employee_number=employee_number)
             technician.delete()
             return JsonResponse(
                 technician,
@@ -87,7 +87,7 @@ def api_show_technician(request, pk):
     else: # PUT
         try:
             content = json.loads(request.body)
-            technician = Technician.objects.get(id=pk)
+            technician = Technician.objects.get(employee_number=employee_number)
 
             props = ["name", "employee_number"]
             for prop in props:
@@ -125,7 +125,7 @@ def api_automobileVO_list(request):
             )
         except:
             response = JsonResponse(
-                {"message": "Could not create the manufacturer"}
+                {"message": "Could not create the automobileVO"}
             )
             response.status_code = 400
             return response
@@ -150,7 +150,7 @@ def api_appointment_list(request):
             )
         except:
             response = JsonResponse(
-                {"message": "Could not create the manufacturer"}
+                {"message": "Could not create the appointment"}
             )
             response.status_code = 400
             return response

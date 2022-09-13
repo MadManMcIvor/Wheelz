@@ -13,8 +13,8 @@ class Technician(models.Model):
     def __str__(self):
         return f"{self.name}"
 
-    # def get_api_url(self):
-    #     return reverse("api_list_hats", kwargs={"pk": self.pk})
+    def get_api_url(self):
+        return reverse("api_show_technician", kwargs={"employee_number": self.employee_number})
 
 
 class Appointment(models.Model):
@@ -34,5 +34,5 @@ class Appointment(models.Model):
     def __str__(self):
         return f"{self.customer_name} at {self.scheduled}"
 
-    # def get_api_url(self):
-    #     return reverse("api_list_hats", kwargs={"pk": self.pk})
+    def get_api_url(self):
+        return reverse("api_show_appointment", kwargs={"pk": self.pk})
