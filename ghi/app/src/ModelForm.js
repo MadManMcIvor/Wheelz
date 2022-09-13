@@ -28,8 +28,8 @@ class ModelForm extends React.Component {
         event.preventDefault();
         const data = {...this.state};
         delete data.manufacturers;
-        console.log(data);
-        console.log(data.manufacturers);
+        // console.log(data);
+        // console.log(data.manufacturers);
         const modelUrl = "http://localhost:8100/api/models/";
         const fetchOptions = {
             method: 'post',
