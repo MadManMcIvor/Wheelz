@@ -33,6 +33,7 @@ class AppointmentForm extends React.Component {
     event.preventDefault();
     const data = {...this.state};
     delete data.technicians;
+    console.log(data);
     const appointmentUrl = 'http://localhost:8080/api/appointments/';
     const fetchOptions = {
       method: 'post',
@@ -95,7 +96,7 @@ class AppointmentForm extends React.Component {
                 <label htmlFor="customer_name">Customer Name</label>
               </div>
               <div className="form-floating mb-3">
-                <input onChange={this.handleScheduledChange} value={this.state.scheduled} placeholder="Schedule" required type="time" name="scheduled" id="scheduled" className="form-control"/>
+                <input onChange={this.handleScheduledChange} value={this.state.scheduled} placeholder="Schedule" required type="datetime-local" name="scheduled" id="scheduled" className="form-control"/>
                 <label htmlFor="scheduled">Scheduled</label>
               </div>
               

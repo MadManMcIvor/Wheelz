@@ -27,6 +27,7 @@ class AppointmentEncoder(ModelEncoder):
         "customer_name",
         "reason_for_service",
         "technician",
+        "scheduled",
         "completed",
     ]
     encoders =  {
@@ -142,6 +143,10 @@ def api_appointment_list(request):
     else:
         try:
             content = json.loads(request.body)
+            technician_name = content["technician"]
+            technician = Technician.objects.get(name=technician_name)
+            content["technician"] = technician
+            print(content)
             appointment = Appointment.objects.create(**content)
             return JsonResponse(
                 appointment,
