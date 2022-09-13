@@ -20,9 +20,9 @@ class Customer(models.Model):
         return self.name
 
 class SalesRecord(models.Model):
-    sales_person = models.ForeignKey(SalesPerson, related_name= "sales", on_delete=models.CASCADE)
-    customer = models.ForeignKey(Customer, related_name="sales", on_delete=models.CASCADE)
-    automobile = models.ForeignKey(AutomobileVO, related_name="sales", on_delete=models.CASCADE)
+    sales_person = models.ForeignKey(SalesPerson, related_name= "sales", on_delete=models.SET_NULL, null=True, blank=False)
+    customer = models.ForeignKey(Customer, related_name="sales", on_delete=models.SET_NULL, null=True, blank=False)
+    automobile = models.ForeignKey(AutomobileVO, related_name="sales", on_delete=models.SET_NULL, null=True, blank=False)
     price = models.PositiveIntegerField()
     is_sold = models.BooleanField(default=False)
 
