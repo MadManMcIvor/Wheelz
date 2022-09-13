@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 
 
-function VechicleModelList(props) {
+function VehicleModelList(props) {
   return (
       <div className="container">
         <div className="d-grid gap-2 d-sm-flex justify-content-sm-end m-4">
@@ -37,4 +37,4 @@ function VechicleModelList(props) {
   }
 
 
-  export default VechicleModelList;
+  export default VehicleModelList;

@@ -3,7 +3,7 @@ import MainPage from './MainPage';
 import Nav from './Nav';
 import ManufacturerList from './Manufacturers'
 import ManufacturerForm from './ManufacturerForm'
-import VechicleModelList from './VechicleModelList'
+import VehicleModelList from './VehicleModelList'
 import ModelForm from './ModelForm'
 
 
@@ -19,7 +19,7 @@ function App(props) {
             <Route path="new" element={<ManufacturerForm/>} />
           </Route>
           <Route path="models" >
-            <Route path ="" element={<VechicleModelList models={props.models} />} />
+            <Route path ="" element={<VehicleModelList models={props.models} />} />
             <Route path="new" element={<ModelForm/>} />
           </Route>
         </Routes>
