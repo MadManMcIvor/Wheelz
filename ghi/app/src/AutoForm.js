@@ -63,7 +63,7 @@ class AutoForm extends React.Component {
 
     handleModelChange(event) {
         const value = event.target.value;
-        this.setState({ model: value });
+        this.setState({ model_id: value });
         }
 
     handleVINChange(event) {
@@ -99,7 +99,6 @@ class AutoForm extends React.Component {
                 <select onChange={this.handleModelChange} value={this.state.model} required name="model" id="model" className="form-select">
                   <option value="">Choose a Model</option>
                   {this.state.models.map(model => {
-                        console.log(model);
                         return (
                             <option key={model.id} value={model.id}>
                                 {model.name}
