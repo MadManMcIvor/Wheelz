@@ -3,6 +3,8 @@ import MainPage from './MainPage';
 import Nav from './Nav';
 import ManufacturerList from './Manufacturers'
 import ManufacturerForm from './ManufacturerForm';
+import AutoList from './Autos';
+import AutoForm from './AutoForm';
 
 function App(props) {
   return (
@@ -14,6 +16,10 @@ function App(props) {
           <Route path="manufacturers" >
             <Route path="" element={<ManufacturerList manufacturers={props.manufacturers}/>} />
             <Route path="new" element={<ManufacturerForm/>} />
+          </Route>
+          <Route path="automobiles" >
+            <Route path="" element={<AutoList autos={props.autos}/>} />
+            <Route path="new" element={<AutoForm/>} />
           </Route>
         </Routes>
       </div>
