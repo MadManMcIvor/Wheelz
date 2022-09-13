@@ -2,7 +2,9 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import MainPage from './MainPage';
 import Nav from './Nav';
 import ManufacturerList from './Manufacturers'
-import ManufacturerForm from './ManufacturerForm'
+import ManufacturerForm from './ManufacturerForm';
+import AutoList from './Autos';
+import AutoForm from './AutoForm';
 import VehicleModelList from './VehicleModelList'
 import ModelForm from './ModelForm'
 
@@ -21,6 +23,10 @@ function App(props) {
           <Route path="models" >
             <Route path ="" element={<VehicleModelList models={props.models} />} />
             <Route path="new" element={<ModelForm/>} />
+          </Route>
+          <Route path="automobiles" >
+            <Route path="" element={<AutoList autos={props.autos}/>} />
+            <Route path="new" element={<AutoForm/>} />
           </Route>
         </Routes>
       </div>
