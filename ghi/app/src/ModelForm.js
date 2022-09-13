@@ -6,18 +6,17 @@ class ModelForm extends React.Component {
         this.state = {
             name: '',
             picture_url: '',
-            manufacturer: [],
+            manufacturers: []
+        };
 
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleNameChange = this.handleNameChange.bind(this);
+        this.handleManufacturerChange = this.handleManufacturerChange.bind(this);
+        this.handlePictureChange = this.handlePictureChange.bind(this);
     }
 
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleNameChange = this.handleNameChange.bind(this);
-    this.handleManufacturerChange = this.handleManufacturerChange.bind(this);
-    this.handlePictureChange = this.handlePictureChange.bind(this);
-  }
-
     async componentDidMount() {
-        const url = 'http://localhost:8100/api/manufacturers/';
+        const url = "http://localhost:8100/api/manufacturers/";
         const response = await fetch(url);
         if (response.ok) {
             const data = await response.json();
@@ -28,8 +27,10 @@ class ModelForm extends React.Component {
     async handleSubmit(event) {
         event.preventDefault();
         const data = {...this.state};
-        delete data.states;
-        const modelUrl = 'http://localhost:8100/api/models/';
+        delete data.manufacturers;
+        console.log(data);
+        console.log(data.manufacturers);
+        const modelUrl = "http://localhost:8100/api/models/";
         const fetchOptions = {
             method: 'post',
             body: JSON.stringify(data),
@@ -40,11 +41,15 @@ class ModelForm extends React.Component {
 
         const personResponse = await fetch(modelUrl, fetchOptions);
         if (personResponse.ok) {
-            this.setState({
-            name: '',
-            picture_url: '',
-            manufacturer: '',
-            });
+            const newResponse = await personResponse.json();
+            console.log(newResponse);
+
+            const cleared = {
+                name: '',
+                picture_url: '',
+                manufacturer_id: '',
+            };
+            this.setState(cleared);
         }
     }
 
@@ -55,7 +60,7 @@ class ModelForm extends React.Component {
 
     handleManufacturerChange(event){
         const value = event.target.value;
-        this.setState({manufacturer: value})
+        this.setState({manufacturer_id: value})
     }
     
     handlePictureChange(event){
@@ -75,11 +80,11 @@ class ModelForm extends React.Component {
                                 <label htmlFor="name">Name</label>
                             </div>
                             <div className="form-floating mb-3">
-                                <input onChange={this.handlePictureChange} value={this.state.picture} placeholder="Picture" required type="text" name="picture_url" id="picture_url" className="form-control"/>
+                                <input onChange={this.handlePictureChange} value={this.state.picture_url} placeholder="Picture" required type="text" name="picture_url" id="picture_url" className="form-control"/>
                                 <label htmlFor="picture_url">Picture URL</label>
                             </div>
                             <div className="mb-3">
-                                <select onChange={this.handleManufacturerChange} value={this.state.manufacturer} required name="manufacturer" id="manufacturer" className="form-select">
+                                <select onChange={this.handleManufacturerChange} value={this.state.manufacturer_id} required name="manufacturer" id="manufacturer" className="form-select">
                                 <option value="">Choose a manufacturer</option>
                                     {this.state.manufacturers.map(manufacturer => {
                                         return (
