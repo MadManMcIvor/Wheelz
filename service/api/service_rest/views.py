@@ -23,12 +23,14 @@ class TechnicianEncoder(ModelEncoder):
 class AppointmentEncoder(ModelEncoder):
     model = Appointment
     properties = [
+        "id",
         "vin",
         "customer_name",
         "reason_for_service",
         "technician",
         "scheduled",
         "completed",
+        "vip",
     ]
     encoders =  {
         "technician": TechnicianEncoder()
@@ -146,7 +148,13 @@ def api_appointment_list(request):
             technician_name = content["technician"]
             technician = Technician.objects.get(name=technician_name)
             content["technician"] = technician
-            print(content)
+            print(content["vin"])
+            try:
+                auto = AutomobileVO.objects.get(vin=content["vin"])
+                if auto != AutomobileVO.DoesNotExist:
+                    content["vip"] = True
+            except AutomobileVO.DoesNotExist:
+                pass
             appointment = Appointment.objects.create(**content)
             return JsonResponse(
                 appointment,

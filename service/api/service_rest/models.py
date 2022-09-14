@@ -30,6 +30,7 @@ class Appointment(models.Model):
         blank=False
     )
     completed = models.BooleanField(default=False)
+    vip = models.BooleanField(default=False)
 
     def __str__(self):
         return f"{self.customer_name} at {self.scheduled}"
