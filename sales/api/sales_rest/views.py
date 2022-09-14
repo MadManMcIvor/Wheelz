@@ -10,15 +10,15 @@ class AutomobileVOEncoder(ModelEncoder):
 
 class SalesPersonEncoder(ModelEncoder):
     model = SalesPerson
-    properties = ["name","employee_number"]
+    properties = ["name","employee_number","id"]
 
 class CustomerEncoder(ModelEncoder):
     model = Customer
-    properties = ["name","address","phone_number"]
+    properties = ["name","address","phone_number","id"]
 
 class SalesRecordEncoder(ModelEncoder):
     model = SalesRecord
-    properties = ["sales_person", "customer", "automobile", "price"]
+    properties = ["sales_person", "customer", "automobile", "price","id"]
     encoders = {
         "sales_person": SalesPersonEncoder(),
         "customer": CustomerEncoder(),
@@ -178,17 +178,18 @@ def api_list_salesrecords(request):
     else:
         content = json.loads(request.body)
         try:
-            AutomobileVO.objects.filter(is_sold=False)
-            vin = AutomobileVO.objects.get(vin=content["vin"])
-            content["vin"] = vin
+            # if AutomobileVO.objects.filter(is_sold=False):
+            
+            automobile = AutomobileVO.objects.get(id=content["automobile"])
+            content["automobile"] = automobile
 
-            sales_person_name = content["sales_person_name"]
-            salesperson = SalesPerson.objects.get(name=sales_person_name)
-            content["salesperson"] = salesperson
+            sales_person = SalesPerson.objects.get(name=content["sales_person"])
+            content["sales_person"] = sales_person
 
-            customer_name = content["customer_name"]
-            customer = Customer.objects.get(name=customer_name)
+            customer = Customer.objects.get(name=content["customer"])
             content["customer"] = customer
+
+            # AutomobileVO.is_sold = True 
 
             salesrecord = SalesRecord.objects.create(**content)
             return JsonResponse(

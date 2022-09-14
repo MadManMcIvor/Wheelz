@@ -5,6 +5,9 @@ class AutomobileVO(models.Model):
     vin = models.CharField(max_length=17, unique=True)
     is_sold = models.BooleanField(default=False)
 
+    def __str__(self):
+        return self.import_href 
+
 class SalesPerson(models.Model):
     name = models.CharField(max_length=200)
     employee_number = models.PositiveSmallIntegerField(unique=True)
