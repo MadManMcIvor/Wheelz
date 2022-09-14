@@ -170,7 +170,7 @@ def api_show_customer(request, pk):
 @require_http_methods(["GET", "POST"])
 def api_list_salesrecords(request):
     if request.method == "GET":
-        salesrecords = AutomobileVO.objects.filter(is_sold =True)
+        salesrecords = SalesRecord.objects.all()
         return JsonResponse(
             {"salesrecords": salesrecords},
             encoder=SalesRecordEncoder
