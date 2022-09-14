@@ -7,6 +7,7 @@ import AutoList from './Autos';
 import AutoForm from './AutoForm';
 import VehicleModelList from './VehicleModelList'
 import ModelForm from './ModelForm'
+import CreateSalesPersonForm from './CreateSalesPersonForm';
 
 
 function App(props) {
@@ -28,6 +29,7 @@ function App(props) {
             <Route path="" element={<AutoList autos={props.autos}/>} />
             <Route path="new" element={<AutoForm/>} />
           </Route>
+          <Route path="salesperson" element={<CreateSalesPersonForm />} />
         </Routes>
       </div>
     </BrowserRouter>
