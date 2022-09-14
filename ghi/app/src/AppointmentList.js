@@ -15,7 +15,8 @@ function AppointmentList(props) {
             <tr>
                 <th>VIN</th>
                 <th>Customer Name</th>
-                <th>Scheduled</th>
+                <th>Date</th>
+                <th>Time</th>
                 <th>Technician</th>
                 <th>Reason for Service</th>
                 <th>VIP?</th>
@@ -23,12 +24,15 @@ function AppointmentList(props) {
             </thead>
             <tbody>
             {filteredProps.appointments.map(appointment => {
+                let date = formatDate(appointment.scheduled);
+                let time = formatTime(appointment.scheduled);
                 return (
                 <>
                 <tr key={appointment.id}>
                     <td>{ appointment.vin }</td>
                     <td>{ appointment.customer_name }</td>
-                    <td>{ appointment.scheduled }</td>
+                    <td>{ date }</td>
+                    <td>{ time }</td>
                     <td>{ appointment.technician.name }</td>
                     <td>{ appointment.reason_for_service }</td>
                     <td>{ appointment.vip.toString() }</td>
@@ -81,5 +85,24 @@ async function deleteItem(appointment) {
     }
     return result
   }
+
+//Needed to formate the singular UTC time into a more readable format.
+function formatDate(dateString){
+  let d = new Date(dateString);
+  return ` ${(d.getMonth()+1)}/${d.getDate()}/${d.getFullYear()}`
+}
+
+//Needed to formate the singular UTC time into a more readable format.
+function formatTime(dateString){
+  let d = new Date(dateString);
+  let hours = d.getHours();
+  let minutes = d.getMinutes();
+  let ampm = hours >= 12 ? 'pm' : 'am';
+  hours = hours % 12;
+  hours = hours ? hours : 12; // the hour '0' should be '12'
+  minutes = minutes < 10 ? '0'+minutes : minutes;
+  let strTime = hours + ':' + minutes + ' ' + ampm;
+  return `${strTime}`
+}
 
   export default AppointmentList;
