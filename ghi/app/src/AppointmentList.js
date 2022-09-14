@@ -71,7 +71,6 @@ async function deleteItem(appointment) {
    window.location.reload(true);
   }
 
-
    //This removes the completed appointments
    function filterProps(props) {
     let result = {appointments: []};

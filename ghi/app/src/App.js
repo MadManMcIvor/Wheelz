@@ -10,6 +10,7 @@ import ModelForm from './ModelForm'
 import TechnicianForm from './TechnicianForm';
 import AppointmentForm from './AppointmentForm';
 import AppointmentList from './AppointmentList';
+import ServiceHistory from './ServiceHistory';
 
 function App(props) {
   return (
@@ -36,6 +37,7 @@ function App(props) {
           <Route path="appointments" >
             <Route path="" element={<AppointmentList appointments={props.appointments}/>} />
             <Route path="new" element={<AppointmentForm/>} />
+            <Route path="history" element={<ServiceHistory  appointments={props.appointments}/>} />
           </Route>
         </Routes>
       </div>
