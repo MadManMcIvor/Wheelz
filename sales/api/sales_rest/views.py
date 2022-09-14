@@ -178,25 +178,25 @@ def api_list_salesrecords(request):
     else:
         content = json.loads(request.body)
         try:
-            # if AutomobileVO.objects.filter(is_sold=False):
+            if AutomobileVO.objects.filter(is_sold=False):
             
-            automobile = AutomobileVO.objects.get(id=content["automobile"])
-            content["automobile"] = automobile
+                automobile = AutomobileVO.objects.get(id=content["automobile"])
+                content["automobile"] = automobile
 
-            sales_person = SalesPerson.objects.get(name=content["sales_person"])
-            content["sales_person"] = sales_person
+                sales_person = SalesPerson.objects.get(name=content["sales_person"])
+                content["sales_person"] = sales_person
 
-            customer = Customer.objects.get(name=content["customer"])
-            content["customer"] = customer
+                customer = Customer.objects.get(name=content["customer"])
+                content["customer"] = customer
 
-            # AutomobileVO.is_sold = True 
+                AutomobileVO.is_sold = True 
 
-            salesrecord = SalesRecord.objects.create(**content)
-            return JsonResponse(
-                salesrecord,
-                encoder=SalesRecordEncoder,
-                safe=False,
-            )
+                salesrecord = SalesRecord.objects.create(**content)
+                return JsonResponse(
+                    salesrecord,
+                    encoder=SalesRecordEncoder,
+                    safe=False,
+                )
         except:
             response = JsonResponse(
                 {"message": "Could not create sales record"}
