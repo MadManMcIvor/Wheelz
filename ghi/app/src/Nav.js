@@ -25,11 +25,21 @@ function Nav() {
             <li className="nav-item">
               <NavLink className="nav-link" to="/technicians/new">Add Technician</NavLink>
             </li>
-            <li className="nav-item">
-              <NavLink className="nav-link" to="/appointments">Appointments</NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink className="nav-link" to="/appointments/new">Add Appointment</NavLink>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Appointments
+              </a>
+                <ul class="dropdown-menu">
+                  <li className="nav-item">
+                    <NavLink className="dropdown-item" to="/appointments/list">Appointments</NavLink>
+                  </li>
+                  <li className="nav-item">
+                    <NavLink className="dropdown-item" to="/appointments/new">Make Appointment</NavLink>
+                  </li>
+                  <li className="nav-item">
+                    <NavLink className="dropdown-item" to="/appointments/history">Service History</NavLink>
+                  </li>
+                </ul>
             </li>
           </ul>
         </div>

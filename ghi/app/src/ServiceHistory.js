@@ -2,23 +2,25 @@ import React, { useState} from 'react'
 
 function ServiceHistory(props) {
     const [search, setSearch] = useState({vin: ''});
-    
+    const [entered, setEntered] = useState({vin: ''});
+
     const handleChange = (event) => {
         setSearch({ ...search, [event.target.name]: event.target.value });
       };
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        setSearch({vin: " "})
+        setEntered({ ...search, [event.target.name]: event.target.value });
+        setSearch({ vin: ""});
       };
     
-    const searchVIN = search["vin"]
-    const filteredProps =  filterProps(props, searchVIN);
- 
+    const enteredVIN = entered["vin"]
+    const filteredProps =  filterProps(props, enteredVIN);
+   
     return (
       <div className="container">
-        <div onSubmit={ handleSubmit }>
-            <form>
+        <div>
+            <form onSubmit={ handleSubmit }>
             <div className="form-floating mb-3">
                 <input onChange={handleChange} placeholder="enter VIN" required type="text" name="vin" id="vin" className="form-control" value={search.vin} />
                 <label htmlFor="vin">Enter VIN</label>
