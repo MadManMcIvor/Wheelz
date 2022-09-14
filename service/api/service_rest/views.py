@@ -198,10 +198,11 @@ def api_show_appointment(request, pk):
         try:
             content = json.loads(request.body)
             appointment = Appointment.objects.get(id=pk)
-            technician_name = content["technician"]
-            technician = Technician.objects.get(name=technician_name)
-            content["technician"] = technician
-        
+            if content.get("technician") != None: 
+                technician_name = content["technician"]
+                technician = Technician.objects.get(name=technician_name)
+                content["technician"] = technician
+
             props = ["vin", "customer_number", "scheduled", "reason_for_service", "technician", "completed"]
             for prop in props:
                 if prop in content:
