@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom';
 
 function AppointmentList(props) {
- 
+    
+    //This removes the completed appointments
     const filteredProps = filterProps(props);
   
     return (
@@ -32,6 +33,7 @@ function AppointmentList(props) {
                     <td>{ appointment.reason_for_service }</td>
                     <td>{ appointment.vip.toString() }</td>
                     <td><button type="button" className="btn btn-danger" onClick={() => deleteItem(appointment)}>delete</button> </td>
+                    <td><button type="button" className="btn btn-success" onClick={() => completeItem(appointment)}>completed</button> </td>
                 </tr>
                 </>
                 );
@@ -42,6 +44,7 @@ function AppointmentList(props) {
     );
   }
 
+//for the delete button
 async function deleteItem(appointment) {
     const appointmentUrl = `http://localhost:8080/api/appointments/${appointment.id}/`;
     const fetchOptions = {
@@ -53,6 +56,21 @@ async function deleteItem(appointment) {
    await fetch(appointmentUrl, fetchOptions);
    window.location.reload(true);
   }
+
+//for the complete button
+  async function completeItem(appointment) {
+    const appointmentUrl = `http://localhost:8080/api/appointments/${appointment.id}/`;
+    const fetchOptions = {
+      method: 'put',
+      body: JSON.stringify({completed: true}),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+   await fetch(appointmentUrl, fetchOptions);
+   window.location.reload(true);
+  }
+
 
    //This removes the completed appointments
    function filterProps(props) {
