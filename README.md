@@ -4,6 +4,7 @@ Team:
 
 * Person 1 - Which microservice?
 * Person 2 - Which microservice?
+* Julie Liao - Sales
 
 ## Design
 
