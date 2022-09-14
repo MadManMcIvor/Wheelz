@@ -49,7 +49,7 @@ function AppointmentList(props) {
   }
 
 //for the delete button
-async function deleteItem(appointment) {
+async function deleteItem(appointment, props) {
     const appointmentUrl = `http://localhost:8080/api/appointments/${appointment.id}/`;
     const fetchOptions = {
       method: 'delete',
