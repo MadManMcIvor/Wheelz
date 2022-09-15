@@ -32,6 +32,7 @@ It's built on a Django backend, React frontend, and uses a PostgreSQL database.
 - from the terminal inside the project directory run: `docker volume create pgdata`
 - then run: `docker-compose build`
 - then run: `docker-compose up`
+- Wait until all the servers are running. In your console, you should see: ![screenshot of the react server running](/readme_images/Screenshot.png)
 - access the website at `localhost:3000`
 
 **Creating Data**
