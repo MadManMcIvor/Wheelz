@@ -2,14 +2,8 @@
 
 Team:
 
-<<<<<<< HEAD
-* Person 1 - Which microservice?
-* Person 2 - Which microservice?
-* Julie Liao - Sales
-=======
 * Alex McIvor - Service Microservice
 * Julie Liao - Sales Microservice
->>>>>>> main
 
 ## Design
 
@@ -73,7 +67,3 @@ If I was continuing on with this project, I'd likely create a customer model tha
 Explain your models and integration with the inventory
 microservice, here.
 
-<<<<<<< HEAD
-=======
-
->>>>>>> main
