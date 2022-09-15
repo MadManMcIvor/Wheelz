@@ -18,6 +18,10 @@ It's built on a Django backend, React frontend, and uses a PostgreSQL database.
 - Create Technicians
 - Create, List, Delete, and mark as complete Appointments
 - Search for past Services by VIN
+- Create sales person
+- Create potential customers
+- Create a sales record and list all sales
+- Select a sales person from a drop down list and view detail of their sales
 
 
 **Context Map**
