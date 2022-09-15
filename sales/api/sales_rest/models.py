@@ -6,7 +6,7 @@ class AutomobileVO(models.Model):
     is_sold = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.import_href 
+        return f"{self.import_href} {self.id}" 
 
 class SalesPerson(models.Model):
     name = models.CharField(max_length=200)
@@ -30,4 +30,4 @@ class SalesRecord(models.Model):
     price = models.PositiveIntegerField()
 
     def __str__(self):
-        return f"{self.sales_person} {self.customer}"
+        return f"{self.sales_person} {self.customer} {self.automobile}"

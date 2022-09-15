@@ -6,7 +6,8 @@ from common.json import ModelEncoder
 
 class AutomobileVOEncoder(ModelEncoder):
     model = AutomobileVO
-    properties = ["vin","import_href"]
+    properties = ["vin","import_href","is_sold"]
+    
 
 class SalesPersonEncoder(ModelEncoder):
     model = SalesPerson
@@ -30,7 +31,7 @@ def api_list_salespersons(request):
     if request.method == "GET":
         salespersons = SalesPerson.objects.all()
         return JsonResponse(
-            {"salesperson": salespersons},
+            {"salespersons": salespersons},
             encoder=SalesPersonEncoder,
         )
     else:
@@ -178,25 +179,35 @@ def api_list_salesrecords(request):
     else:
         content = json.loads(request.body)
         try:
-            if AutomobileVO.objects.filter(is_sold=False):
-            
-                automobile = AutomobileVO.objects.get(id=content["automobile"])
-                content["automobile"] = automobile
+            if True:
+                automobile_href = content["automobile"]
+                automobile = AutomobileVO.objects.get(import_href=automobile_href)
+                if automobile.is_sold == False:
+                    automobile.is_sold = True
+                    automobile.save()
+                    content["automobile"] = automobile
 
-                sales_person = SalesPerson.objects.get(name=content["sales_person"])
-                content["sales_person"] = sales_person
+                    sales_person_name = content["sales_person"]
+                    sales_person = SalesPerson.objects.get(name=sales_person_name)
+                    content["sales_person"] = sales_person
 
-                customer = Customer.objects.get(name=content["customer"])
-                content["customer"] = customer
+                    customer_name = content["customer"]
+                    customer = Customer.objects.get(name=customer_name)
+                    content["customer"] = customer
 
-                AutomobileVO.is_sold = True 
-
-                salesrecord = SalesRecord.objects.create(**content)
-                return JsonResponse(
-                    salesrecord,
-                    encoder=SalesRecordEncoder,
-                    safe=False,
+                    salesrecord = SalesRecord.objects.create(**content)
+                    return JsonResponse(
+                        salesrecord,
+                        encoder=SalesRecordEncoder,
+                        safe=False,
+                    )
+                else:
+                    response = JsonResponse(
+                    {"message": "Already sold"}
                 )
+                response.status_code = 400
+                return response
+                
         except:
             response = JsonResponse(
                 {"message": "Could not create sales record"}
@@ -234,7 +245,20 @@ def api_show_salesrecord(request, pk):
         try:
             content = json.loads(request.body)
             salesrecord = SalesRecord.objects.get(id=pk)
-            props = ["price"]
+
+            sales_person_name = content["sales_person"]
+            sales_person = SalesPerson.objects.get(name=sales_person_name)
+            content["sales_person"] = sales_person
+
+            automobile_id = content["automobile"]
+            automobile = AutomobileVO.objects.get(id=automobile_id)
+            content["automobile"] = automobile
+
+            customer_name = content["customer"]
+            customer = Customer.objects.get(name=customer_name)
+            content["customer"] = customer
+
+            props = ["sales_person", "customer", "automobile", "price"]
             for prop in props:
                 if prop in content:
                     setattr(salesrecord, prop, content[prop])
