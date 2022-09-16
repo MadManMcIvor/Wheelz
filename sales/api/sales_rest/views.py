@@ -272,3 +272,13 @@ def api_show_salesrecord(request, pk):
             response = JsonResponse({"message": "Does not exist"})
             response.status_code = 404
             return response
+
+
+@require_http_methods(["GET"])
+def api_list_automobiles(request):
+    if request.method == "GET":
+        cars = AutomobileVO.objects.all()
+        return JsonResponse(
+            {"cars": cars},
+            encoder=AutomobileVOEncoder
+        )
