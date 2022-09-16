@@ -53,7 +53,7 @@ To start testing the website with some data, just go from left to right on the N
 
 
 **Navigating the Website**
-- Links are either at the top NavBar or in the relevant page (e.g. you'll add a manufacturer from the the button on the manufacturers list page)
+- Links are either at the top NavBar or in the relevant page (e.g. you'll add a manufacturer from the the button on the manufacturers list page). There are dropdown menus for the manufacturers, vehicle models, automobiles, appointments, and sales record on the NavBar. 
   
 **Appointments**
 - Already completed appointments won't show up in the appointments list.
