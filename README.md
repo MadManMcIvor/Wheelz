@@ -69,6 +69,8 @@ If I was continuing on with this project, I'd likely create a customer model tha
 
 ## Sales microservice - Julie Liao
 
+![context map of the application](/readme_images/Sales_models.png)
+
 The sales microservice poll automobiles data from the inventory, which allows users to use, create, and update instance of AutomobileVO. 
 
 I decided to create AutomobileVO, sales person, customer, and sales record models. For the AutomobileVO, I decided to include is_sold as an instance of AutomobileVO to check status of the car. I created an api list view for the AutomobileVO so users can see whether car is sold or not. The api view also includes the list, create, update, and delete for sales person, customer, and sales record. 
