@@ -43,7 +43,7 @@ It's built on a Django backend, React frontend, and uses a PostgreSQL database.
 - Click on the Manufacturer tab in the NavBar
 - Click the blue Add a manufacturer button 
 - Fill out the form and hit submit.
-- Repeat for Vehicle Model, Automobiles, and Add Technician tabs
+- Repeat for Vehicle Model, Automobiles, Add Technician, Customer, and Sales Person tabs
 - For appointments, click on the tab and select make appointment
 - Fill out the form and hit submit.
 
