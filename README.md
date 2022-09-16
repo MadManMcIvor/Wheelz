@@ -66,10 +66,10 @@ I created models for Automobile VO, Technicians, and Appointments. Technicians a
 If I was continuing on with this project, I'd likely create a customer model that would integrate with sales microservice.
 
 
-## Sales microservice
+## Sales microservice - Julie Liao
 
 The sales microservice poll automobiles data from the inventory, which allows users to use, create, and update instance of AutomobileVO. 
 
 I decided to create AutomobileVO, sales person, customer, and sales record models. For the AutomobileVO, I decided to include is_sold as an instance of AutomobileVO to check status of the car. I created an api list view for the AutomobileVO so users can see whether car is sold or not. The api view also includes the list, create, update, and delete for sales person, customer, and sales record. 
 
-When creating sales record in insomnia, input {"sales_person": "name of sales person", "customer": "customer name", "automobile": "href of automobile", "price": "price of car"}. If users try to buy the same car by inputing the same automobile href, the console will return "Already sold". When creating new sales record in localhost:3000, refresh page after making one sales record if planning to make another sales record so page can reload with the updated available car to buy.  
+When creating sales record in Insomnia API client, input {"sales_person": "name of sales person", "customer": "customer name", "automobile": "href of automobile", "price": "price of car"}. If users try to buy the same car by inputing the same automobile href, the console will return "Already sold". When creating new sales record in localhost:3000, refresh page after making one sales record if planning to make another sales record so page can reload with the updated available car to buy.  

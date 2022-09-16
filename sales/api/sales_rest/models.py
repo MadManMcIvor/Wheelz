@@ -9,14 +9,14 @@ class AutomobileVO(models.Model):
         return f"{self.import_href} {self.id}" 
 
 class SalesPerson(models.Model):
-    name = models.CharField(max_length=200)
+    name = models.CharField(max_length=200, unique=True)
     employee_number = models.PositiveSmallIntegerField(unique=True)
 
     def __str__(self):
         return self.name
 
 class Customer(models.Model):
-    name = models.CharField(max_length=200)
+    name = models.CharField(max_length=200, unique=True)
     address = models.CharField(max_length=200)
     phone_number = models.CharField(max_length=15, unique=True)
 
