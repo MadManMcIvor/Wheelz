@@ -1,181 +1,119 @@
-// import React, { useState} from 'react'
+import React, { useState, useEffect} from 'react'
 
-// function SalesPersonSales(props){
-//     const [select, setSelected] = useState({
-//         sales_person: "",
-//     });
+function SalesPersonSales(props){
+    const [state, setState] = useState({
+        name: "",
+        salespersons: [],
+        salesrecords: []
+    });
 
-    
-//     const handleChange = (event) => {
-//         setSelected({ ...select, [event.target.name]: event.target.value });
-//       };
+ 
+    const handleSalesPersonDropDown = async (event) => {
+        
+        // console.log("EVENT:::::", event)
+        // console.log("Event target", event.target.value);
 
-//     const handleSubmit = (event) => {
-//         event.preventDefault();
-//         setEntered({ ...search, [event.target.name]: event.target.value });
-//         setSearch({ vin: ""});
-//       };
-    
-//     const enteredVIN = entered["vin"]
-//     const filteredProps =  filterProps(props, enteredVIN);
-//     return (
-//         <>
-//             <div className="container mt-3">
-//                 <div>
-//                     <h1>Sales person history</h1>
-//                 </div>
-//             </div>
-//             <div className="mt-4">
-//                 <select className="form-select" value={select} onSelect={handleSelect}>
-//                 <option value="">Select sales person</option>
-//                 {props.salesrecords.map(salesrecord => {
-//                     return (
-//                         <option key={salesrecord.id} value={salesrecord.sales_person.name}>
-//                             {salesrecord.sales_person.name}
-//                         </option>
-//                     );
-//                     })}
-//                 </select>
-//             </div>
-//             <div className="container">
-//             <table className="table table-striped">
-//                 <thead>
-//                 <tr>
-//                     <th>Sales person</th>
-//                     <th>Customer</th>
-//                     <th>VIN</th>
-//                     <th>Sales price</th>
-                
-//                 </tr>
-//                 </thead>
-//                 <tbody>
-    
-//                 { filteredProps.salesrecords.map(salesrecord=>{
-//                     return (
-//                         <>
-//                         <tr key={salesrecord.id}>
-//                         <td>{ salesrecord.sales_person.name }</td>
-//                         <td>{ salesrecord.customer.name }</td>
-//                         <td>{ salesrecord.automobile.vin }</td>
-//                         <td>{ salesrecord.price }</td>
-//                     </tr>
-//                         </>
-//                     )
-//                     })
-//                 }
-//                 </tbody>
-//             </table>
-//             </div>
-//         </>
-//       );
-//     }
-
-//     // function filterProps(props, name) {
-//     //     let result = {salesrecords: []};
-//     //     for (let salesrecord of props.salesrecords) {
-//     //         if (salesrecord.sales_person.name === name) {
-//     //             result.salesrecords.push(salesrecord)
-//     //         }
-//     //     }
-//     //     return result
-//     //   }
-
-//   export default SalesPersonSales;
-
-
-
-import React from "react";
-
-class SalesPersonSales extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = { 
-            salesrecords: [],
-            salespersons:[],
-            selectOptions: []
-        };
-        this.handleChange = this.handleChange.bind(this);
-    }
-
-    async componentDidMount() {
-        const salesrecordUrl = "http://localhost:8090/api/salesrecords/";
-        const salespersonUrl = "http://localhost:8090/api/salespersons/";
-        const salespersonResponse = await fetch(salespersonUrl);
-        const salesrecordResponse = await fetch(salesrecordUrl);
-
-        if (salesrecordResponse.ok) {
-            const data = await salesrecordResponse.json()
-            this.setState({ salesrecords: data.salesrecords })
-        }
-
-        if(salespersonResponse.ok){
-            const salespersonsData = await salespersonResponse.json();
-            this.setState({ salespersons: salespersonsData.salespersons});
-
-        }
-    }
-
-   
-
-    handleChange(event) {
-        this.setState({
-        [event.target.name]: event.target.value
+        setState({...state, 
+            name: event.target.value
+        
         });
 
-    }
+        const salesrecordUrl = "http://localhost:8090/api/salesrecords/";
+        const recordResponse = await fetch(salesrecordUrl)    
+        if (recordResponse.ok) {
+            const recordData = await recordResponse.json()
+            console.log("salese record data!", recordData);
+            let result = [];
+            for(let record of recordData.salesrecords){
+                if(record.sales_person.name === event.target.value){
+                    result.push(record);
+                }
+            }
+            console.log(result, "hello");
+
+            setState({...state, salesrecords: result})
+            }
+
+
+     }
+   
+
+
+    useEffect(() => {
+        console.log("useffect firing");
+        
+        async function getInfo(){
+            console.log("useEffect!");
+            const url = "http://localhost:8090/api/salespersons/"
+            const response = await fetch(url)
+            if (response.ok) {
+                const data = await response.json()
+                console.log("data!",data);
+                setState({...state, salespersons: data.salespersons})
+            }else{
+                setState({...state,salespersons: []})
+            }
+
+        }
+        getInfo();
+      }, []);
+
     
 
-    render() {
-        return (
-            <>
-             <div className="container mt-3">
-                 <div>
-                     <h1>Sales person history</h1>
-                 </div>
-                <div className="mb-3">
-                <select onChange={this.handleChange} value={this.state.salespersons} name="salespersons" required id="salespersons" className="form-select">
-                <option value="">Select a sales person</option>
-                {this.state.salespersons.map(salesperson => {
-                    return <option key={salesperson.id} value={salesperson.name}>{salesperson.name}</option>
-                })}
+
+    return (
+        <>
+            <div className="container mt-3">
+                <div>
+                    <h1>Sales person history</h1>
+                </div>
+            </div>
+            <div className="mb-3">
+                <select className="form-select" onChange={handleSalesPersonDropDown} value={state.name} name="name" required id="name">
+                <option value="">Select sales person</option>
+                {state.salespersons.map(salesperson => {
+                    return (
+                        <option key={salesperson.id} value={salesperson.name}>
+                            {salesperson.name}
+                        </option>
+                    );
+                    })}
                 </select>
-                </div>
-                <table className="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>Sales person</th>
-                            <th>Customer</th>
-                            <th>VIN</th>
-                            <th>Sales price</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {this.state.salesrecords.map(salesrecord => {
-                            return (
-                                <tr key={salesrecord.id}>
-                                    <td>{salesrecord.sales_person.name}</td>
-                                    <td>{salesrecord.customer.name}</td>
-                                    <td>{salesrecord.automobile.vin}</td>
-                                    <td>{salesrecord.price}</td>
-                                </tr>
-                            );
-                        })}
-                    </tbody>
-                </table>
-                </div>
-            </>
-        )
+            </div>
+            <div className="container">
+            <table className="table table-striped">
+                <thead>
+                <tr>
+                    <th> Employee Number</th>
+                    <th>Sales person</th>
+                    <th>Customer</th>
+                    <th>VIN</th>
+                    <th>Sales price</th>
+                
+                </tr>
+                </thead>
+                <tbody>
+    
+                { state.salesrecords.map(salesrecord=>{
+                    return (
+                        <>
+                        <tr key={salesrecord.id}>
+                        <td> {salesrecord.sales_person.employee_number} </td>
+                        <td>{ salesrecord.sales_person.name }</td>
+                        <td>{ salesrecord.customer.name }</td>
+                        <td>{ salesrecord.automobile.vin }</td>
+                        <td>{ salesrecord.price }</td>
+                    </tr>
+                        </>
+                    )
+                    })
+                }
+                </tbody>
+            </table>
+            </div>
+        </>
+      );
     }
-}
 
-// function filterProps(props, name) {
-//     let result = {salesrecords: []};
-//     for (let salesrecord of props.salesrecords) {
-//         if (salesrecord.sales_person.name === name) {
-//             result.salesrecords.push(salesrecord)
-//         }
-//     }
-//     return result
-// }
+  export default SalesPersonSales;
 
-export default SalesPersonSales;
