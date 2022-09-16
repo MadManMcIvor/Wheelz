@@ -36,14 +36,15 @@ It's built on a Django backend, React frontend, and uses a PostgreSQL database.
 - from the terminal inside the project directory run: `docker volume create pgdata`
 - then run: `docker-compose build`
 - then run: `docker-compose up`
+- **Very Important!** Wait until all the servers are running. In your console, you should see: ![screenshot of the react server running](/readme_images/Screenshot.png) This may take a while (think 5 minutes or longer) on the first time. It won't show anything out of the ordinary in the terminal - like it's working on something - so please be patient. If you're still having issues with viewing the page kill the servers with `control` + `c` and then restart them. 
 - access the website at `localhost:3000`
 
 **Creating Data**
 - Click on the Manufacturer tab in the NavBar
 - Click the blue Add a manufacturer button 
 - Fill out the form and hit submit.
-- repeat for Vehicle Model, Automobiles, and Add Technician tabs
-- for appointments, click on the tab and select make appointment
+- Repeat for Vehicle Model, Automobiles, and Add Technician tabs
+- For appointments, click on the tab and select make appointment
 - Fill out the form and hit submit.
 
 **Navigating the Website**
