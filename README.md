@@ -17,6 +17,7 @@ It's built on a Django backend, React frontend, and uses a PostgreSQL database.
 - Create & List Automobiles in the Inventory
 - Create Technicians
 - Create, List, Delete, and mark as complete Appointments
+- The appointments list page will will filter out any already completed appointments and also show if the car had been sold by us as indicated with the VIP section.
 - Search for past Services by VIN
 - Create sales person
 - Create potential customers
@@ -40,12 +41,16 @@ It's built on a Django backend, React frontend, and uses a PostgreSQL database.
 - access the website at `localhost:3000`
 
 **Creating Data**
-- Click on the Manufacturer tab in the NavBar
-- Click the blue Add a manufacturer button 
-- Fill out the form and hit submit.
-- Repeat for Vehicle Model, Automobiles, Add Technician, Customer, and Sales Person tabs
-- For appointments, click on the tab and select make appointment
-- Fill out the form and hit submit.
+To start testing the website with some data, just go from left to right on the NavBar:
+- Click on the Manufacturer tab in the NavBar, select the create on the drop down, and make a new manufacturer.
+- Then do the same for Vehicle Model
+- Then do the same for Automobile (to test if the vip section works make sure to use the same VIN number you used to create the automobile you entered)
+- Then do the same for Technician
+- Then do the same for Appointment
+- Then do the same for Salesperson
+- Then do the same for Potential Customer
+- Then do the same for Sales Record
+
 
 **Navigating the Website**
 - Links are either at the top NavBar or in the relevant page (e.g. you'll add a manufacturer from the the button on the manufacturers list page)
@@ -64,6 +69,8 @@ For my service - microservice, I used the poller to poll the automobile API from
 
 I created models for Automobile VO, Technicians, and Appointments. Technicians and Appointments both had full RESTful APIs (List, Details, Delete, Update, Create). Automobiles only has create and list, as the others weren't necessary at this point in time.
 
+I used a combo of both functional and class components to get experience using both. 
+
 If I was continuing on with this project, I'd likely create a customer model that would integrate with sales microservice.
 
 
@@ -75,4 +82,4 @@ The sales microservice poll automobiles data from the inventory, which allows us
 
 I decided to create AutomobileVO, sales person, customer, and sales record models. For the AutomobileVO, I decided to include is_sold as an instance of AutomobileVO to check status of the car. I created an api list view for the AutomobileVO so users can see whether car is sold or not. The api view also includes the list, create, update, and delete for sales person, customer, and sales record. 
 
-When creating sales record in Insomnia API client, input {"sales_person": "name of sales person", "customer": "customer name", "automobile": "href of automobile", "price": "price of car"}. If users try to buy the same car by inputing the same automobile href, the console will return "Already sold". When creating new sales record in localhost:3000, refresh page after making one sales record if planning to make another sales record so page can reload with the updated available car to buy.  
+When creating sales record in Insomnia API client, input {"sales_person": "name of sales person", "customer": "customer name", "automobile": "href of automobile", "price": "price of car"}. If users try to buy the same car by inputting the same automobile href, the console will return "Already sold". When creating new sales record in localhost:3000, refresh page after making one sales record if planning to make another sales record so page can reload with the updated available car to buy.  
