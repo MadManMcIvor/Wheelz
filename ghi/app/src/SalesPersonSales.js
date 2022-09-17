@@ -102,7 +102,7 @@ function SalesPersonSales(props){
                         <td>{ salesrecord.sales_person.name }</td>
                         <td>{ salesrecord.customer.name }</td>
                         <td>{ salesrecord.automobile.vin }</td>
-                        <td>{ salesrecord.price }</td>
+                        <td>${ salesrecord.price }</td>
                     </tr>
                         </>
                     )
