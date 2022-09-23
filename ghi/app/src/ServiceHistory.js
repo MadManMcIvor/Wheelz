@@ -65,7 +65,7 @@ function ServiceHistory(props) {
 //This filters appointments by VIN
 function filterProps(props, vin) {
     let result = {appointments: []};
-    for (let appointment of props.appointments) {
+    for (let appointment of props?.appointments) {
         if (appointment.vin === vin) {
             result.appointments.push(appointment)
         }

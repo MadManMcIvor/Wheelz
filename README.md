@@ -34,9 +34,9 @@ It's built on a Django backend, React frontend, and uses a PostgreSQL database.
 **Setup**
 - Clone the repo: ` git clone https://gitlab.com/MadManMcIvor/project-beta.git `
 - Fire up your Docker desktop app
-- from the terminal inside the project directory run: `docker volume create pgdata`
-- then run: `docker-compose build`
-- then run: `docker-compose up`
+- From the terminal inside the project directory run: `docker volume create beta-data`
+- Then run: `docker-compose build`
+- Then run: `docker-compose up`
 - **Very Important!** Wait until all the servers are running. In your console, you should see: ![screenshot of the react server running](/readme_images/Screenshot.png) This may take a while (think 5 minutes or longer) on the first time. It won't show anything out of the ordinary in the terminal - like it's working on something - so please be patient. If you're still having issues with viewing the page kill the servers with `control` + `c` and then restart them. 
 - access the website at `localhost:3000`
 
