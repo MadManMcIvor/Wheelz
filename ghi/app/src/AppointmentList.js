@@ -2,46 +2,20 @@ import { Link } from 'react-router-dom';
 import React, { useEffect, useState } from "react";
 
 
-const AppointmentList = () => {
+const AppointmentList = ({appointments, setAppointments, getAppointments}) => {
   
-  const [state, setState] = useState({
-    appointments:[],
-  });
- 
-  useEffect(() => {
-    const url = 'http://localhost:8080/api/appointments/';
-    (async () => {
-      const response = await fetch(url)  
-      if (response.ok) {
-        const data = await response.json();
-        console.log(data);
-        const filteredData = filterCompleted(data);
-        console.log(filteredData);
-        setState({...state, appointments: filteredData.appointments})
-      } else {
-        setState({...state, appointments: []})
-      }
-    }
-    )();
-  
-  }, []);
-  
-  
-  async function deleteAppointment(event, appointment) {
+  async function deleteAppointment(appointment) {
     const deleteUrl = `http://localhost:8080/api/appointments/${appointment.id}/`;
     const fetchConfig = {
         method: "delete"
     }
-    await fetch(deleteUrl, fetchConfig)
-    const index = state.appointments.indexOf(appointment)
-    const updated_appointments = [...state.appointments]
-    console.log(updated_appointments)
-    updated_appointments.splice(index, 1)
-    console.log(updated_appointments)
-    setState({...state, appointments: updated_appointments})
+    const response = await fetch(deleteUrl, fetchConfig);
+    if (response.ok) {
+      getAppointments();
+    }
   }
 
-  async function markComplete(event, appointment) {
+  async function markComplete(appointment) {
     const url = `http://localhost:8080/api/appointments/${appointment.id}/`;
     const fetchConfig = {
       method: 'put',
@@ -50,17 +24,19 @@ const AppointmentList = () => {
         'Content-Type': 'application/json',
       },
     };
-    await fetch(url, fetchConfig)
-    const index = state.appointments.indexOf(appointment)
-    const updated_appointments = [...state.appointments]
-    console.log(updated_appointments)
-    updated_appointments.splice(index, 1)
-    console.log(updated_appointments)
-    setState({...state, appointments: updated_appointments})
+    const response = await fetch(url, fetchConfig)
+    if (response.ok) {
+      getAppointments();
+    }
   }
+
+  function filterCompleted(appointments) {
+    return appointments.filter(appointment => appointment.completed === false);
+    }
 
   return (
     <div className="container">
+      <div className="text-center fs-1 p-3" >Upcoming Appointments</div>
       <div className="d-grid gap-2 d-sm-flex justify-content-sm-end m-4">
             <Link to="/appointments/new" className="btn btn-primary btn-lg px-4 gap-3">Make an Appointment!</Link>
       </div>
@@ -77,12 +53,11 @@ const AppointmentList = () => {
           </tr>
           </thead>
           <tbody>
-          {state.appointments?.map(appointment => {
+          {filterCompleted(appointments)?.map(appointment => {
               let date = formatDate(appointment.scheduled);
               let time = formatTime(appointment.scheduled);
               return (
-              <>
-              <tr key={appointment.id}>
+              <tr key={'appointmentlist item' + appointment.id}>
                   <td>{ appointment.vin }</td>
                   <td>{ appointment.customer_name }</td>
                   <td>{ date }</td>
@@ -90,10 +65,9 @@ const AppointmentList = () => {
                   <td>{ appointment.technician.name }</td>
                   <td>{ appointment.reason_for_service }</td>
                   <td>{ appointment.vip.toString() }</td>
-                  <td><button className="btn btn-danger" onClick={event => deleteAppointment(event, appointment)}>Delete</button></td>
-                  <td><button className="btn btn-success" onClick={event => markComplete(event, appointment)}>Complete</button></td>
+                  <td><button className="btn btn-danger" onClick={event => deleteAppointment(appointment)}>Delete</button></td>
+                  <td><button className="btn btn-success" onClick={event => markComplete(appointment)}>Complete</button></td>
               </tr>
-              </>
               );
           })}
           </tbody>
@@ -102,16 +76,7 @@ const AppointmentList = () => {
     );
   }
 
-   //This removes the completed appointments
-   function filterCompleted(data) {
-    let result = {appointments: []};
-    for (let appointment of data.appointments) {
-        if (appointment.completed === false) {
-            result.appointments.push(appointment)
-        }
-    }
-    return result
-  }
+
 
 //Needed to formate the singular UTC time into a more readable format.
 function formatDate(dateString){

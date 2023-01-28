@@ -1,28 +1,34 @@
-import React, { useState} from 'react'
+import {useEffect, useState} from 'react'
 
-function ServiceHistory(props) {
-    const [search, setSearch] = useState({vin: ''});
-    const [entered, setEntered] = useState({vin: ''});
+function ServiceHistory({appointments}) {
+    const [search, setSearch] = useState('');
+    const [filteredAppointments, setFilteredAppointments] = useState(appointments)
 
-    const handleChange = (event) => {
-        setSearch({ ...search, [event.target.name]: event.target.value });
+    const handleChange = (e) => {
+        setSearch(e.target.value);
       };
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        setEntered({ ...search, [event.target.name]: event.target.value });
-        setSearch({ vin: ""});
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        setFilteredAppointments(filterByVIN(appointments, search))
       };
     
-    const enteredVIN = entered["vin"]
-    const filteredProps =  filterProps(props, enteredVIN);
-   
+    function filterByVIN(appointments, search) {
+        const result = appointments.filter(appointment => appointment.vin === search);
+        return result.length ? result : appointments
+        }
+
+
+    useEffect(() => {
+      setFilteredAppointments(appointments);
+      },[appointments])
+
     return (
       <div className="container">
         <div>
             <form onSubmit={ handleSubmit }>
             <div className="form-floating mb-3">
-                <input onChange={handleChange} placeholder="enter VIN" required type="text" name="vin" id="vin" className="form-control" value={search.vin} />
+                <input onChange={handleChange} placeholder="enter VIN" required type="text" name="vin" id="vin" className="form-control" value={search} />
                 <label htmlFor="vin">Enter VIN</label>
             </div>
                 <button className="btn btn-primary">Search</button>
@@ -42,9 +48,8 @@ function ServiceHistory(props) {
             </tr>
             </thead>
             <tbody>
-            {filteredProps.appointments.map(appointment => {
+            {filteredAppointments?.map(appointment => {
                 return (
-                <>
                 <tr key={appointment.id}>
                     <td>{ appointment.vin }</td>
                     <td>{ appointment.customer_name }</td>
@@ -53,7 +58,6 @@ function ServiceHistory(props) {
                     <td>{ appointment.reason_for_service }</td>
                     <td>{ appointment.vip.toString() }</td>
                 </tr>
-                </>
                 );
             })}
             </tbody>
@@ -62,15 +66,5 @@ function ServiceHistory(props) {
     );
   }
 
-//This filters appointments by VIN
-function filterProps(props, vin) {
-    let result = {appointments: []};
-    for (let appointment of props?.appointments) {
-        if (appointment.vin === vin) {
-            result.appointments.push(appointment)
-        }
-    }
-    return result
-  }
 
   export default ServiceHistory;
