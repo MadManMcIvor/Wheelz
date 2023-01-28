@@ -1,5 +1,5 @@
-function SalesList(props) {
-    
+function SalesList({salesRecords}) {
+  
     return (
       <div className="container">
         <h1>Sales record list</h1>
@@ -16,7 +16,7 @@ function SalesList(props) {
             <tbody>
 
             {
-              props.salesrecords.map(salesrecord=>{
+              salesRecords.map(salesrecord=>{
                 return (
                   <>
                   <tr key={salesrecord.id}>

@@ -179,34 +179,33 @@ def api_list_salesrecords(request):
     else:
         content = json.loads(request.body)
         try:
-            if True:
-                automobile_href = content["automobile"]
-                automobile = AutomobileVO.objects.get(import_href=automobile_href)
-                if automobile.is_sold == False:
-                    automobile.is_sold = True
-                    automobile.save()
-                    content["automobile"] = automobile
+            automobile_href = content["automobile"]
+            automobile = AutomobileVO.objects.get(id=automobile_href)
+            if automobile.is_sold == False:
+                automobile.is_sold = True
+                automobile.save()
+                content["automobile"] = automobile
 
-                    sales_person_name = content["sales_person"]
-                    sales_person = SalesPerson.objects.get(name=sales_person_name)
-                    content["sales_person"] = sales_person
+                sales_person_name = content["sales_person"]
+                sales_person = SalesPerson.objects.get(name=sales_person_name)
+                content["sales_person"] = sales_person
 
-                    customer_name = content["customer"]
-                    customer = Customer.objects.get(name=customer_name)
-                    content["customer"] = customer
+                customer_name = content["customer"]
+                customer = Customer.objects.get(name=customer_name)
+                content["customer"] = customer
 
-                    salesrecord = SalesRecord.objects.create(**content)
-                    return JsonResponse(
-                        salesrecord,
-                        encoder=SalesRecordEncoder,
-                        safe=False,
-                    )
-                else:
-                    response = JsonResponse(
-                    {"message": "Already sold"}
+                salesrecord = SalesRecord.objects.create(**content)
+                return JsonResponse(
+                    salesrecord,
+                    encoder=SalesRecordEncoder,
+                    safe=False,
                 )
-                response.status_code = 400
-                return response
+            else:
+                response = JsonResponse(
+                {"message": "Already sold"}
+            )
+            response.status_code = 400
+            return response
                 
         except:
             response = JsonResponse(

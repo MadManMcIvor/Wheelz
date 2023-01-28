@@ -21,7 +21,6 @@ function ManufacturerList(props) {
                 <tr key={manufacturer.id}>
                     <td>{ manufacturer.id }</td>
                     <td>{ manufacturer.name }</td>
-                    {/* <td><button type="button" className="btn btn-danger" onClick={() => deleteItem(hat)}>delete</button> </td> */}
                 </tr>
                 </>
                 );
@@ -31,19 +30,5 @@ function ManufacturerList(props) {
       </div>
     );
   }
-
-// async function deleteItem(hat) {
-//     const hatUrl = `http://localhost:8090/api/hats/${hat.id}`;
-//     const fetchOptions = {
-//       method: 'delete',
-//       headers: {
-//         'Content-Type': 'application/json',
-//       },
-//     };
-//    await fetch(hatUrl, fetchOptions);
-//    window.location.reload(true);
-//   }
-
-
 
   export default ManufacturerList;

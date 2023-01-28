@@ -1,50 +1,44 @@
-import React from 'react';
+import {useState} from "react";
 
-class ManufacturerForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      name: '',
-    }
+function ManufacturerForm({getManufacturers}) {
+  const [name, setName] = useState('');
 
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleNameChange = this.handleNameChange.bind(this);
+  const handleNameChange = (e) => {
+    const value = e.target.value;
+    setName(value)
   }
 
-  async handleSubmit(event) {
-    event.preventDefault();
-    const data = {...this.state};
-    const manufacturerURL = 'http://localhost:8100/api/manufacturers/';
-    const fetchOptions = {
-      method: 'post',
-      body: JSON.stringify(data),
-      headers: {
-        'Content-Type': 'application/json',
-      },
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const data = {};
+    data.name = name
+
+    const manufacturerUrl = `${process.env.REACT_APP_INVENTORY_API}/api/manufacturers/`;
+    const fetchConfig = {
+        method: "post",
+        body: JSON.stringify(data),
+        headers: {
+            "Content-Type": "application/json",
+        },
     };
-    const attendeeResponse = await fetch(manufacturerURL, fetchOptions);
-    if (attendeeResponse.ok) {
-      this.setState({
-        name: '',
-      });
+    const response = await fetch(manufacturerUrl, fetchConfig);
+    if (response.ok){
+      const newManufacturer = await response.json();
+      console.log(newManufacturer);
+      setName('');
+      getManufacturers()
     }
-  }
+    }
 
-    handleNameChange(event) {
-        const value = event.target.value;
-        this.setState({ name: value });
-        }
-
-  render() {
-    return (
+  return (
         <div className="row">
         <div className="offset-3 col-6">
           <div className="shadow p-4 mt-4">
             <h1>Add a new Manufacturer!</h1>
-            <form onSubmit={this.handleSubmit} id="create-manufacturer-form">
+            <form onSubmit={handleSubmit} id="create-manufacturer-form">
               
               <div className="form-floating mb-3">
-                <input onChange={this.handleNameChange} value={this.state.name} placeholder="Name" required type="text" name="name" id="name" className="form-control"/>
+                <input onChange={handleNameChange} value={name} placeholder="Name" required type="text" name="name" id="name" className="form-control"/>
                 <label htmlFor="name">Name</label>
               </div>
               <button className="btn btn-primary">Add</button>
@@ -55,6 +49,6 @@ class ManufacturerForm extends React.Component {
       </div>
       );
     }
-  }
+
 
 export default ManufacturerForm;
