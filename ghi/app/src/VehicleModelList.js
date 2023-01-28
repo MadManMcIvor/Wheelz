@@ -25,7 +25,6 @@ function VehicleModelList(props) {
                     <td>
                         <img src= { model.picture_url } alt="" />
                     </td>
-                    {/* <td><button type="button" className="btn btn-danger" onClick={() => deleteItem(model)}>delete</button> </td> */}
                 </tr>
                 </>
                 );

@@ -1,35 +1,34 @@
-import React from 'react';
+import {useEffect, useState} from "react";
 
-class ModelForm extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            name: '',
-            picture_url: '',
-            manufacturers: []
-        };
+function ModelForm({manufacturers, getModels}) {
+    const [name, setName] = useState('')
+    const [picture_url, setPicURL] = useState('')
+    const [manufacturer_id, setManufacturerID] = useState('')
 
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleNameChange = this.handleNameChange.bind(this);
-        this.handleManufacturerChange = this.handleManufacturerChange.bind(this);
-        this.handlePictureChange = this.handlePictureChange.bind(this);
+
+    const handleNameChange = (e) => {
+        const value = e.target.value;
+        setName(value);
+    }
+    
+    const handlePictureChange = (e) => {
+        const value = e.target.value;
+        setPicURL(value);
     }
 
-    async componentDidMount() {
-        const url = "http://localhost:8100/api/manufacturers/";
-        const response = await fetch(url);
-        if (response.ok) {
-            const data = await response.json();
-            this.setState({ manufacturers: data.manufacturers });
-        }
+    const handleManufacturerChange = (e) => {
+        const value = e.target.value;
+        setManufacturerID(value)
     }
+    
 
-    async handleSubmit(event) {
-        event.preventDefault();
-        const data = {...this.state};
-        delete data.manufacturers;
-        // console.log(data);
-        // console.log(data.manufacturers);
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const data = {};
+        data.name = name;
+        data.manufacturer_id = manufacturer_id
+        data.picture_url = picture_url
+
         const modelUrl = "http://localhost:8100/api/models/";
         const fetchOptions = {
             method: 'post',
@@ -38,55 +37,35 @@ class ModelForm extends React.Component {
             'Content-Type': 'application/json',
             },
         };
-
         const response = await fetch(modelUrl, fetchOptions);
         if (response.ok) {
-            const newResponse = await response.json();
-            console.log(newResponse);
-
-            const cleared = {
-                name: '',
-                picture_url: '',
-                manufacturer_id: '',
-            };
-            this.setState(cleared);
+            const newModel = await response.json();
+            console.log(newModel);
+            setName('');
+            setPicURL('');
+            setManufacturerID('');
+            getModels();
         }
     }
 
-    handleNameChange(event) {
-        const value = event.target.value;
-        this.setState({ name: value });
-    }
-
-    handleManufacturerChange(event){
-        const value = event.target.value;
-        this.setState({manufacturer_id: value})
-    }
-    
-    handlePictureChange(event){
-        const value = event.target.value;
-        this.setState({ picture_url: value});
-    }
-
-    render() {
         return (
             <div className="row">
                 <div className="offset-3 col-6">
                     <div className="shadow p-4 mt-4">
                         <h1>Create a vehicle model</h1>
-                        <form onSubmit={this.handleSubmit} id="create-model-form">
+                        <form onSubmit={handleSubmit} id="create-model-form">
                             <div className="form-floating mb-3">
-                                <input onChange={this.handleNameChange} value={this.state.name} placeholder="Name" required type="text" name="name" id="name" className="form-control"/>
+                                <input onChange={handleNameChange} value={name} placeholder="Name" required type="text" name="name" id="name" className="form-control"/>
                                 <label htmlFor="name">Name</label>
                             </div>
                             <div className="form-floating mb-3">
-                                <input onChange={this.handlePictureChange} value={this.state.picture_url} placeholder="Picture" required type="text" name="picture_url" id="picture_url" className="form-control"/>
+                                <input onChange={handlePictureChange} value={picture_url} placeholder="Picture" required type="text" name="picture_url" id="picture_url" className="form-control"/>
                                 <label htmlFor="picture_url">Picture URL</label>
                             </div>
                             <div className="mb-3">
-                                <select onChange={this.handleManufacturerChange} value={this.state.manufacturer_id} required name="manufacturer" id="manufacturer" className="form-select">
+                                <select onChange={handleManufacturerChange} value={manufacturer_id} required name="manufacturer" id="manufacturer" className="form-select">
                                 <option value="">Choose a manufacturer</option>
-                                    {this.state.manufacturers.map(manufacturer => {
+                                    {manufacturers.map(manufacturer => {
                                         return (
                                             <option key={manufacturer.id} value={manufacturer.id}>
                                                 {manufacturer.name}
@@ -102,6 +81,5 @@ class ModelForm extends React.Component {
             </div>
         );
     }
-  }
 
 export default ModelForm;
