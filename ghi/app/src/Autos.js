@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 
 
-function AutoList(props) {
+function AutoList({automobiles}) {
   return (
       <div className="container">
         <div className="d-grid gap-2 d-sm-flex justify-content-sm-end m-4">
@@ -19,19 +19,16 @@ function AutoList(props) {
             </tr>
             </thead>
             <tbody>
-            {props.autos.map(auto => {
+            {automobiles.map(auto => {
                 return (
-                <>
-                <tr key={auto.id}>
+                <tr key={auto.id + auto.model.name + "autolist"}>
                     <td>{ auto.id }</td>
                     <td>{ auto.color }</td>
                     <td>{ auto.year }</td>
                     <td>{ auto.model.manufacturer.name }</td>
                     <td>{ auto.model.name }</td>
                     <td>{ auto.vin }</td>
-                    {/* <td><button type="button" className="btn btn-danger" onClick={() => deleteItem(hat)}>delete</button> </td> */}
                 </tr>
-                </>
                 );
             })}
             </tbody>
@@ -39,19 +36,5 @@ function AutoList(props) {
       </div>
     );
   }
-
-// async function deleteItem(hat) {
-//     const hatUrl = `http://localhost:8090/api/hats/${hat.id}`;
-//     const fetchOptions = {
-//       method: 'delete',
-//       headers: {
-//         'Content-Type': 'application/json',
-//       },
-//     };
-//    await fetch(hatUrl, fetchOptions);
-//    window.location.reload(true);
-//   }
-
-
-
+  
   export default AutoList;

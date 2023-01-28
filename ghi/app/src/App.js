@@ -89,7 +89,7 @@ function App(props) {
           </Route>
           <Route path="automobiles" >
             <Route path="" element={<AutoList automobiles={automobiles}/>} />
-            <Route path="new" element={<AutoForm/>} />
+            <Route path="new" element={<AutoForm models={models} getAutomobiles={getAutomobiles} />} />
           </Route>
           <Route path="salesperson" element={<CreateSalesPersonForm />} />
           <Route path="customer" element={<CreateCustomerForm />} />
