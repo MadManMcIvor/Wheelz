@@ -4,21 +4,21 @@ import axios from 'axios'
 
 import MainPage from './MainPage';
 import Nav from './Nav';
-import ManufacturerList from './Manufacturers'
-import ManufacturerForm from './ManufacturerForm';
-import AutoList from './Autos';
-import AutoForm from './AutoForm';
-import VehicleModelList from './VehicleModelList'
-import ModelForm from './ModelForm'
-import CreateSalesPersonForm from './CreateSalesPersonForm';
-import CreateCustomerForm from './CustomerForm';
-import TechnicianForm from './TechnicianForm';
-import AppointmentForm from './AppointmentForm';
-import AppointmentList from './AppointmentList';
-import ServiceHistory from './ServiceHistory';
-import SalesList from './SalesList';
-import SaleRecordForm from './SaleRecordForm';
-import SalesPersonSales from './SalesPersonSales';
+import ManufacturerList from './Inventory/Manufacturers'
+import ManufacturerForm from './Inventory/ManufacturerForm';
+import AutoList from './Inventory/Autos';
+import AutoForm from './Inventory/AutoForm';
+import VehicleModelList from './Service/VehicleModelList'
+import ModelForm from './Inventory/ModelForm'
+import CreateSalesPersonForm from './Sales/CreateSalesPersonForm';
+import CreateCustomerForm from './Inventory/CustomerForm';
+import TechnicianForm from './Service/TechnicianForm';
+import AppointmentForm from './Service/AppointmentForm';
+import AppointmentList from './Service/AppointmentList';
+import ServiceHistory from './Service/ServiceHistory';
+import SalesList from './Sales/SalesList';
+import SaleRecordForm from './Sales/SaleRecordForm';
+import SalesPersonSales from './Sales/SalesPersonSales';
 
 function App(props) {
   const [manufacturers, setManufacturers] = useState([])
