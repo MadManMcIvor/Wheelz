@@ -179,8 +179,8 @@ def api_list_salesrecords(request):
     else:
         content = json.loads(request.body)
         try:
-            automobile_href = content["automobile"]
-            automobile = AutomobileVO.objects.get(id=automobile_href)
+            automobile_vin = content["automobile"]
+            automobile = AutomobileVO.objects.get(vin=automobile_vin)
             if automobile.is_sold == False:
                 automobile.is_sold = True
                 automobile.save()

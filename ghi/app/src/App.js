@@ -24,6 +24,7 @@ function App(props) {
   const [manufacturers, setManufacturers] = useState([])
   const [models, setModels] = useState([])
   const [automobiles, setAutomobiles] = useState([])
+  const [automobileVOs, setAutomobileVOs] = useState([])
   const [appointments, setAppointments] = useState([])
   const [salesRecords, setSalesRecords] = useState([])
   const [customers, setCustomers] = useState([])
@@ -40,6 +41,10 @@ function App(props) {
 
   const getAutomobiles= async () => {
     axios.get(`${process.env.REACT_APP_INVENTORY_API}/api/automobiles/`).then((response) => {setAutomobiles(response.data.autos)})
+  }
+  
+  const getAutomobileVOs= async () => {
+    axios.get(`${process.env.REACT_APP_SALES_API}/api/cars/`).then((response) => {setAutomobileVOs(response.data.cars)})
   }
 
   const getTechnicians = async () => {
@@ -66,6 +71,7 @@ function App(props) {
     getManufacturers();
     getModels();
     getAutomobiles();
+    getAutomobileVOs();
     getTechnicians();
     getAppointments();
     getCustomers();
@@ -103,7 +109,7 @@ function App(props) {
           </Route>
           <Route path="salesrecords" >
             <Route path="" element={<SalesList salesRecords={salesRecords}/>} />
-            <Route path="new" element={<SaleRecordForm />} />
+            <Route path="new" element={<SaleRecordForm customers={customers} salespersons={salespersons} automobileVOs={automobileVOs} getSalesRecords={getSalesRecords} getAutomobileVOs={getAutomobileVOs}/>}  />
             <Route path="salesperson" element={<SalesPersonSales/>} />
           </Route>
         </Routes>

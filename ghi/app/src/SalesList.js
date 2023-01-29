@@ -14,18 +14,15 @@ function SalesList({salesRecords}) {
             </tr>
             </thead>
             <tbody>
-
             {
-              salesRecords.map(salesrecord=>{
+              salesRecords.map(salesrecord => { 
                 return (
-                  <>
-                  <tr key={salesrecord.id}>
+                  <tr key={"salesrecord #" + salesrecord.id}>
                     <td>{ salesrecord.sales_person.name }</td>
                     <td>{ salesrecord.customer.name }</td>
                     <td>{ salesrecord.automobile.vin }</td>
                     <td> ${ salesrecord.price }</td>
                 </tr>
-                  </>
                 )
               })
             }
