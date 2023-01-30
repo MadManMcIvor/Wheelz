@@ -1,13 +1,17 @@
-# CarCar
+# Wheelz
 
-Team:
+## Team:
 
 * Alex McIvor - Service Microservice
 * Julie Liao - Sales Microservice
 
+## Demo
+
+![demo of the app working](/readme_images/app_demo.gif)
+
 ## Design
 
-CarCar is a webapp designed to track a car dealership with services for it's inventory, sales, and service. Each service is broken out into it's own microservice, implementing RESTful APIs to communicate with one another. The project is containerize with Docker.
+Wheelz is a webapp designed to track a car dealership with services for it's inventory, sales, and service. Each service is broken out into it's own microservice, implementing RESTful APIs to communicate with one another. The project is containerize with Docker.
 
 It's built on a Django backend, React frontend, and uses a PostgreSQL database.
 

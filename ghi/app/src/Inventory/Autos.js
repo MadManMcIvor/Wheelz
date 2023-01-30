@@ -5,7 +5,7 @@ function AutoList({automobiles}) {
   return (
       <div className="container">
         <div className="d-grid gap-2 d-sm-flex justify-content-sm-end m-4">
-              <Link to="/automobiles/new" className="btn btn-primary btn-lg px-4 gap-3">Add a Automobile!</Link>
+              <Link to="/automobiles/new" className="btn btn-primary btn-lg px-4 gap-3">Add an Automobile!</Link>
         </div>
         <table className="table table-striped">
             <thead>
