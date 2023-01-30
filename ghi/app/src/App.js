@@ -84,7 +84,7 @@ function App(props) {
       <Nav />
       <div className="container">
         <Routes>
-          <Route path="/" element={<MainPage />} />
+          <Route path="/" element={<MainPage automobiles={automobiles} />} />
           <Route path="manufacturers" >
             <Route path="" element={<ManufacturerList manufacturers={manufacturers}/>} />
             <Route path="new" element={<ManufacturerForm getManufacturers={getManufacturers}/>} />

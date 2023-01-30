@@ -18,15 +18,13 @@ function VehicleModelList(props) {
             <tbody>
             {props.models.map(model => {
                 return (
-                <>
-                <tr key={ model.id }>
-                    <td>{ model.name }</td>
-                    <td>{ model.manufacturer.name }</td>
+                <tr key={"model #" + model.id}>
+                    <td>{model.name}</td>
+                    <td>{model.manufacturer.name}</td>
                     <td>
-                        <img src= { model.picture_url } alt="" />
+                        <img className='img-thumbnail' src= { model.picture_url} alt="" />
                     </td>
                 </tr>
-                </>
                 );
             })}
             </tbody>
